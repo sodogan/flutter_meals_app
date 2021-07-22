@@ -8,11 +8,14 @@ class Category {
   const Category.all(
       {required this.id, required this.title, required this.color});
 
-  const Category(
-      {required this.id, required this.title, this.color = Colors.blue});
+  const Category({
+    required this.id,
+    required this.title,
+    this.color = Colors.orange,
+  });
 
   const Category.amber({required this.id, required this.title})
-      : this.color = Colors.amber;
+      : color = Colors.amber;
 
   const Category.green(String newID, String title)
       : this.all(id: newID, title: title, color: Colors.green);
