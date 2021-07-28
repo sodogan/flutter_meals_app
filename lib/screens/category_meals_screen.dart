@@ -5,16 +5,22 @@ import '../models/dummy_data.dart';
 
 class CategoryMealsScreen extends StatelessWidget {
   static const String _routeName = "/category-details";
+  final List<Meal> meals;
+  final Function favouritesHandler;
+  final Function isFavouriteIcon;
 
   const CategoryMealsScreen({
     Key? key,
+    required this.meals,
+    required this.favouritesHandler,
+    required this.isFavouriteIcon,
   }) : super(key: key);
 
   static get routeName => _routeName;
 
   //filter based on Category ID
   List<Meal> filterMealsBasedOnCategoryID({String? categoryID}) {
-    return DUMMY_MEALS.where((Meal meal) {
+    return meals.where((Meal meal) {
       return meal.categoriesBelongTo.contains(categoryID);
     }).toList();
   }
@@ -45,6 +51,8 @@ class CategoryMealsScreen extends StatelessWidget {
             duration: _meal.duration,
             affordability: _meal.affordability,
             complexity: _meal.complexity,
+            favouritesHandler: favouritesHandler,
+            isFavouriteIcon: isFavouriteIcon,
           );
         },
         itemCount: _matchingMealsList.length,

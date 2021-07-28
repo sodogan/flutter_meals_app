@@ -4,8 +4,14 @@ import '../models/dummy_data.dart';
 
 class MealDetailsScreen extends StatelessWidget {
   static const String _routeName = "/meal-details";
+  final Function favouritesHandler;
+  final Function isFavouriteIcon;
 
-  const MealDetailsScreen({Key? key}) : super(key: key);
+  const MealDetailsScreen({
+    Key? key,
+    required this.favouritesHandler,
+    required this.isFavouriteIcon,
+  }) : super(key: key);
 
   static get routeName => _routeName;
 
@@ -109,6 +115,12 @@ class MealDetailsScreen extends StatelessWidget {
                   itemCount: _meal.steps.length),
             ),
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => favouritesHandler(_meal.id),
+        child: Icon(
+          isFavouriteIcon(_meal.id),
         ),
       ),
     );

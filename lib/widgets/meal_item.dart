@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screens/meal_details_screen.dart';
 import '../models/meal.dart';
@@ -9,6 +10,8 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function favouritesHandler;
+  final Function isFavouriteIcon;
 
   const MealItem({
     Key? key,
@@ -18,6 +21,8 @@ class MealItem extends StatelessWidget {
     required this.complexity,
     required this.duration,
     required this.affordability,
+    required this.favouritesHandler,
+    required this.isFavouriteIcon,
   }) : super(key: key);
 
   void selectMeal(BuildContext cntx) {
@@ -40,38 +45,12 @@ class MealItem extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
-                  ),
-                  child: Image.network(
-                    imageUrl,
-                    height: 250,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  bottom: 20,
-                  right: 10,
-                  child: Container(
-                    color: Colors.black54,
-                    width: 300,
-                    child: Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 26,
-                        color: Colors.white,
-                      ),
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                    ),
-                  ),
-                ),
-              ],
+            MealItemBody(
+              mealID: id,
+              imageUrl: imageUrl,
+              title: title,
+              favouritesHandler: favouritesHandler,
+              isFavouriteIcon: isFavouriteIcon,
             ),
             MealItemFooter(
               affordability: affordability,
@@ -81,6 +60,74 @@ class MealItem extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class MealItemBody extends StatelessWidget {
+  final String mealID;
+  final String imageUrl;
+  final String title;
+  final Function favouritesHandler;
+  final Function isFavouriteIcon;
+
+  const MealItemBody({
+    Key? key,
+    required this.imageUrl,
+    required this.mealID,
+    required this.title,
+    required this.favouritesHandler,
+    required this.isFavouriteIcon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    IconData favouriteIcon = isFavouriteIcon(
+      mealID,
+    );
+
+    return Stack(
+      children: [
+        ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+          child: Image.network(
+            imageUrl,
+            height: 250,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Center(
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            margin: const EdgeInsets.symmetric(vertical: 0),
+            child: Icon(
+              favouriteIcon,
+              size: 52,
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 20,
+          right: 10,
+          child: Container(
+            color: Colors.black54,
+            width: 300,
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 26,
+                color: Colors.white,
+              ),
+              softWrap: true,
+              overflow: TextOverflow.fade,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -106,9 +153,14 @@ class MealItemFooter extends StatelessWidget {
       children: [
         Icon(icon),
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            text,
+          padding: const EdgeInsets.all(4.0),
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              text,
+              overflow: TextOverflow.fade,
+              softWrap: true,
+            ),
           ),
         ),
       ],
