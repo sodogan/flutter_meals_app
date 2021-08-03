@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_meals_app/models/category.dart';
+import 'package:flutter_meals_app/models/data_stream.dart';
 import 'package:flutter_meals_app/screens/favourites_screen.dart';
 import 'package:flutter_meals_app/screens/filter_settings_screen.dart';
 import 'package:flutter_meals_app/screens/meal_details_screen.dart';
@@ -27,8 +29,25 @@ class _MyAppState extends State<MyApp> {
     'isVegan': false,
     'isVegetarian': false,
   };
+  List<Category> _allCategories = DUMMY_CATEGORIES;
   List<Meal> _availableMeals = DUMMY_MEALS;
   List<Meal> _favouriteMeals = [];
+
+  @override
+  void initState() {
+    super.initState();
+    print('inside initState');
+    /*
+    buildCategoryFuture().then((categories) {
+      _allCategories = categories;
+      print(_allCategories);
+    });
+    
+    buildMealFuture().then((meals) {
+      _availableMeals = meals;
+    });
+    */
+  }
 
   void saveFilters(Map<String, bool> newFilters) {
     setState(() {
@@ -58,14 +77,6 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  IconData isFavouriteIcon(String mealID) {
-    final icon = _favouriteMeals.contains((Meal meal) => meal.id == mealID)
-        ? Icons.star
-        : Icons.star_border;
-
-    return icon;
-  }
-
   //build the filters
   List<Meal> filterAvailableMeals() {
     return _availableMeals.where((Meal meal) {
@@ -85,13 +96,24 @@ class _MyAppState extends State<MyApp> {
     }).toList();
   }
 
+  IconData isFavouriteIcon(String mealID) {
+    final icon = _favouriteMeals.contains(
+      (Meal meal) => meal.id == mealID,
+    )
+        ? Icons.star
+        : Icons.star_border;
+
+    return icon;
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('Rebuilding Main');
     final _pages = [
       {
         'title': 'Categories',
         'page': CategoriesScreen(
-          categoryList: DUMMY_CATEGORIES,
+          categoryList: _allCategories,
         ),
       },
       {

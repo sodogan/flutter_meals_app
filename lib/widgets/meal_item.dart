@@ -82,10 +82,6 @@ class MealItemBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    IconData favouriteIcon = isFavouriteIcon(
-      mealID,
-    );
-
     return Stack(
       children: [
         ClipRRect(
@@ -98,16 +94,6 @@ class MealItemBody extends StatelessWidget {
             height: 250,
             width: double.infinity,
             fit: BoxFit.cover,
-          ),
-        ),
-        Center(
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            margin: const EdgeInsets.symmetric(vertical: 0),
-            child: Icon(
-              favouriteIcon,
-              size: 52,
-            ),
           ),
         ),
         Positioned(
@@ -173,8 +159,14 @@ class MealItemFooter extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         buildFooterItem(icon: Icons.timelapse, text: '$duration min'),
-        buildFooterItem(icon: Icons.tungsten, text: '$complexity'),
-        buildFooterItem(icon: Icons.attach_money, text: '$affordability'),
+        buildFooterItem(
+          icon: Icons.tungsten,
+          text: complexity.toString(),
+        ),
+        buildFooterItem(
+          icon: Icons.attach_money,
+          text: affordability.toString(),
+        ),
       ],
     );
   }

@@ -26,12 +26,12 @@ class MealDetailsScreen extends StatelessWidget {
   }) {
     return Container(
       //color: Theme.of(context).backgroundColor,
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 10,
       ),
       child: Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.black38,
         ),
         softWrap: true,
@@ -42,8 +42,8 @@ class MealDetailsScreen extends StatelessWidget {
   Widget buildContainer({required Widget child}) {
     return Container(
       height: 200,
-      padding: EdgeInsets.all(12),
-      margin: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.all(10),
       width: 300,
       decoration: BoxDecoration(
         border: Border.all(
@@ -106,7 +106,7 @@ class MealDetailsScreen extends StatelessWidget {
                             _step,
                           ),
                         ),
-                        Divider(
+                        const Divider(
                           color: Colors.grey,
                         )
                       ],

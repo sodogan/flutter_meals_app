@@ -10,19 +10,21 @@ class CategoriesScreen extends StatelessWidget {
     required this.categoryList,
   }) : super(key: key);
 
+  List<Widget> get categoryItems {
+    return categoryList
+        .map(
+          (category) => CategoryItem(category),
+        )
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GridView(
-      padding: const EdgeInsets.all(25),
-      children: [
-        ...categoryList
-            .map(
-              (Category category) => CategoryItem(
-                category: category,
-              ),
-            )
-            .toList(),
-      ],
+      padding: const EdgeInsets.all(
+        25,
+      ),
+      children: categoryItems,
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: 200,
         //childAspectRatio: 3 / 2,

@@ -19,7 +19,7 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedPageIndex = 0;
 
-  void _selectPage(int index) {
+  void _selectPageHandler(int index) {
     setState(() {
       _selectedPageIndex = index;
     });
@@ -38,9 +38,50 @@ class _TabsScreenState extends State<TabsScreen> {
       body: _selectedPage,
       drawer: const MainDrawer(),
       bottomNavigationBar: MainBottomNavigationBar(
-        selectedPageHandler: _selectPage,
+        selectedPageHandler: _selectPageHandler,
         selectedPageIndex: _selectedPageIndex,
       ),
+    );
+  }
+}
+
+typedef IntSelectPageCallback = void Function(int);
+
+class MainBottomNavigationBar extends StatelessWidget {
+  final int selectedPageIndex;
+  final IntSelectPageCallback selectedPageHandler;
+
+  const MainBottomNavigationBar({
+    Key? key,
+    required this.selectedPageHandler,
+    required this.selectedPageIndex,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      backgroundColor: Theme.of(context).primaryColor,
+      selectedItemColor: Colors.amber,
+      unselectedItemColor: Colors.white,
+      currentIndex: selectedPageIndex,
+      type: BottomNavigationBarType.fixed,
+      onTap: selectedPageHandler,
+      items: [
+        BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            label: 'Categories',
+            icon: const Icon(
+              Icons.category,
+            ),
+            tooltip: 'All meal categories'),
+        BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            label: 'Favourites',
+            icon: const Icon(
+              Icons.star,
+            ),
+            tooltip: 'Your favourites'),
+      ],
     );
   }
 }
@@ -106,45 +147,6 @@ class MainDrawer extends StatelessWidget {
               title: 'Settings'),
         ],
       ),
-    );
-  }
-}
-
-class MainBottomNavigationBar extends StatelessWidget {
-  final int selectedPageIndex;
-  final Function(int) selectedPageHandler;
-
-  const MainBottomNavigationBar({
-    Key? key,
-    required this.selectedPageHandler,
-    required this.selectedPageIndex,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Theme.of(context).primaryColor,
-      selectedItemColor: Colors.amber,
-      unselectedItemColor: Colors.white,
-      currentIndex: selectedPageIndex,
-      type: BottomNavigationBarType.fixed,
-      onTap: selectedPageHandler,
-      items: [
-        BottomNavigationBarItem(
-          backgroundColor: Theme.of(context).primaryColor,
-          label: 'Categories',
-          icon: const Icon(
-            Icons.category,
-          ),
-        ),
-        BottomNavigationBarItem(
-          backgroundColor: Theme.of(context).primaryColor,
-          label: 'Favourites',
-          icon: const Icon(
-            Icons.star,
-          ),
-        ),
-      ],
     );
   }
 }

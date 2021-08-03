@@ -3,12 +3,16 @@ import '../screens/category_meals_screen.dart';
 import '../models/category.dart';
 
 class CategoryItem extends StatelessWidget {
-  final Category category;
+  final Category _category;
 
-  const CategoryItem({
+  static const double opacity = 0.3;
+
+  const CategoryItem(
+    this._category, {
     Key? key,
-    required this.category,
   }) : super(key: key);
+
+  get category => _category;
 
   void handlePress({
     required BuildContext context,
@@ -23,18 +27,6 @@ class CategoryItem extends StatelessWidget {
       CategoryMealsScreen.routeName,
       arguments: args,
     );
-    /*
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return CategoryMealsScreen(
-            selectedID: category.id,
-            selectedTitle: category.title,
-          );
-        },
-      ),
-    );
-   */
   }
 
   @override
@@ -47,22 +39,23 @@ class CategoryItem extends StatelessWidget {
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(15),
       child: Container(
-          padding: const EdgeInsets.all(15),
-          child: Text(
-            category.title,
-            style: Theme.of(context).textTheme.bodyText2,
+        padding: const EdgeInsets.all(15),
+        child: Text(
+          category.title,
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          gradient: LinearGradient(
+            colors: [
+              category.color.withOpacity(opacity),
+              category.color,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            gradient: LinearGradient(
-              colors: [
-                category.color.withOpacity(0.7),
-                category.color,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          )),
+        ),
+      ),
     );
   }
 }

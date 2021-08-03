@@ -55,10 +55,10 @@ const DUMMY_CATEGORIES = [
   ),
 ];
 
-const DUMMY_MEALS = [
+final DUMMY_MEALS = [
   Meal(
     id: 'm1',
-    categories: [
+    categoryIDSBelongTo: [
       'c1',
       'c2',
     ],
@@ -92,7 +92,7 @@ const DUMMY_MEALS = [
   ),
   Meal(
     id: 'm2',
-    categories: [
+    categoryIDSBelongTo: [
       'c2',
     ],
     title: 'Toast Hawaii',
@@ -120,7 +120,7 @@ const DUMMY_MEALS = [
   ),
   Meal(
     id: 'm3',
-    categories: [
+    categoryIDSBelongTo: [
       'c2',
       'c3',
     ],
@@ -152,7 +152,7 @@ const DUMMY_MEALS = [
   ),
   Meal(
     id: 'm4',
-    categories: [
+    categoryIDSBelongTo: [
       'c4',
     ],
     title: 'Wiener Schnitzel',
@@ -187,7 +187,7 @@ const DUMMY_MEALS = [
   ),
   Meal(
     id: 'm5',
-    categories: [
+    categoryIDSBelongTo: [
       'c2'
           'c5',
       'c10',
@@ -223,7 +223,7 @@ const DUMMY_MEALS = [
   ),
   Meal(
     id: 'm6',
-    categories: [
+    categoryIDSBelongTo: [
       'c6',
       'c10',
     ],
@@ -259,7 +259,7 @@ const DUMMY_MEALS = [
   ),
   Meal(
     id: 'm7',
-    categories: [
+    categoryIDSBelongTo: [
       'c7',
     ],
     title: 'Pancakes',
@@ -290,7 +290,7 @@ const DUMMY_MEALS = [
   ),
   Meal(
     id: 'm8',
-    categories: [
+    categoryIDSBelongTo: [
       'c8',
     ],
     title: 'Creamy Indian Chicken Curry',
@@ -323,7 +323,7 @@ const DUMMY_MEALS = [
   ),
   Meal(
     id: 'm9',
-    categories: [
+    categoryIDSBelongTo: [
       'c9',
     ],
     title: 'Chocolate Souffle',
@@ -372,7 +372,7 @@ const DUMMY_MEALS = [
   ),
   Meal(
     id: 'm10',
-    categories: [
+    categoryIDSBelongTo: [
       'c2',
       'c5',
       'c10',

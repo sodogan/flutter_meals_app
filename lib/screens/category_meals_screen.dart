@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/meal_item.dart';
 import '../models/meal.dart';
-import '../models/dummy_data.dart';
 
 class CategoryMealsScreen extends StatelessWidget {
   static const String _routeName = "/category-details";
@@ -21,7 +20,7 @@ class CategoryMealsScreen extends StatelessWidget {
   //filter based on Category ID
   List<Meal> filterMealsBasedOnCategoryID({String? categoryID}) {
     return meals.where((Meal meal) {
-      return meal.categoriesBelongTo.contains(categoryID);
+      return meal.categoryIDSBelongTo.contains(categoryID);
     }).toList();
   }
 
