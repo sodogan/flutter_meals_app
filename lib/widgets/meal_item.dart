@@ -4,29 +4,19 @@ import '../screens/meal_details_screen.dart';
 import '../models/meal.dart';
 
 class MealItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final String imageUrl;
-  final int duration;
-  final Complexity complexity;
-  final Affordability affordability;
+  final Meal meal;
   final Function favouritesHandler;
   final Function isFavouriteIcon;
 
   const MealItem({
     Key? key,
-    required this.id,
-    required this.title,
-    required this.imageUrl,
-    required this.complexity,
-    required this.duration,
-    required this.affordability,
+    required this.meal,
     required this.favouritesHandler,
     required this.isFavouriteIcon,
   }) : super(key: key);
 
   void selectMeal(BuildContext cntx) {
-    final args = {'meal_id': id};
+    final args = {'meal': meal};
     Navigator.of(cntx).pushNamed(
       MealDetailsScreen.routeName,
       arguments: args,
@@ -46,16 +36,16 @@ class MealItem extends StatelessWidget {
         child: Column(
           children: [
             MealItemBody(
-              mealID: id,
-              imageUrl: imageUrl,
-              title: title,
+              mealID: meal.id,
+              imageUrl: meal.imageUrl,
+              title: meal.title,
               favouritesHandler: favouritesHandler,
               isFavouriteIcon: isFavouriteIcon,
             ),
             MealItemFooter(
-              affordability: affordability,
-              complexity: complexity,
-              duration: duration,
+              affordability: meal.affordability,
+              complexity: meal.complexity,
+              duration: meal.duration,
             ),
           ],
         ),

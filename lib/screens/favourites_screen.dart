@@ -28,14 +28,9 @@ class FavouritesScreen extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               final _meal = favouriteMeals[index];
               return MealItem(
+                meal: _meal,
                 favouritesHandler: favouritesHandler,
                 isFavouriteIcon: isFavouriteIcon,
-                id: _meal.id,
-                title: _meal.title,
-                imageUrl: _meal.imageUrl,
-                duration: _meal.duration,
-                affordability: _meal.affordability,
-                complexity: _meal.complexity,
               );
             },
             itemCount: favouriteMeals.length,

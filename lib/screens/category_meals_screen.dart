@@ -44,12 +44,7 @@ class CategoryMealsScreen extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           final _meal = _matchingMealsList[index];
           return MealItem(
-            id: _meal.id,
-            title: _meal.title,
-            imageUrl: _meal.imageUrl,
-            duration: _meal.duration,
-            affordability: _meal.affordability,
-            complexity: _meal.complexity,
+            meal: _meal,
             favouritesHandler: favouritesHandler,
             isFavouriteIcon: isFavouriteIcon,
           );

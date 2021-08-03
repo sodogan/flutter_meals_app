@@ -30,19 +30,21 @@ class _MyAppState extends State<MyApp> {
     'isVegetarian': false,
   };
   List<Category> _allCategories = DUMMY_CATEGORIES;
-  List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _allMeals = DUMMY_MEALS;
   List<Meal> _favouriteMeals = [];
 
   @override
   void initState() {
     super.initState();
     print('inside initState');
+    // _allCategories = await buildCategoryFuture();
+    // _allMeals = await buildMealFuture();
     /*
     buildCategoryFuture().then((categories) {
       _allCategories = categories;
       print(_allCategories);
     });
-    
+
     buildMealFuture().then((meals) {
       _availableMeals = meals;
     });
@@ -52,19 +54,20 @@ class _MyAppState extends State<MyApp> {
   void saveFilters(Map<String, bool> newFilters) {
     setState(() {
       filterSettings = newFilters;
-      _availableMeals = filterAvailableMeals();
+      _allMeals = filterMeals();
       print(filterSettings);
     });
   }
 
   void toggleFavourite(String mealID) {
+    print('Adding to the toggleFavourite');
     final bool Function(Meal) callback = (Meal meal) => meal.id == mealID;
     final isFavourite = _favouriteMeals.any(callback);
-    Meal matchingMeal =
-        _availableMeals.firstWhere((element) => element.id == mealID);
+    Meal matchingMeal = _allMeals.firstWhere((element) => element.id == mealID);
     if (!isFavourite) {
       setState(() {
         _favouriteMeals.add(matchingMeal);
+        print('inside favourite meals $_favouriteMeals');
       });
     } else {
       final index =
@@ -78,8 +81,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   //build the filters
-  List<Meal> filterAvailableMeals() {
-    return _availableMeals.where((Meal meal) {
+  List<Meal> filterMeals() {
+    return _allMeals.where((Meal meal) {
       if (filterSettings['isGlutenFree']! && !meal.isGlutenFree) {
         return false;
       }
@@ -97,13 +100,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   IconData isFavouriteIcon(String mealID) {
-    final icon = _favouriteMeals.contains(
-      (Meal meal) => meal.id == mealID,
-    )
-        ? Icons.star
-        : Icons.star_border;
+    print('$mealID');
 
-    return icon;
+    final isExisting = _favouriteMeals.any((Meal meal) => meal.id == mealID);
+
+    print(isExisting);
+    return isExisting ? Icons.star : Icons.star_border;
   }
 
   @override
@@ -139,7 +141,7 @@ class _MyAppState extends State<MyApp> {
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(
               favouritesHandler: toggleFavourite,
               isFavouriteIcon: isFavouriteIcon,
-              meals: _availableMeals,
+              meals: _allMeals,
             ),
         MealDetailsScreen.routeName: (ctx) => MealDetailsScreen(
               isFavouriteIcon: isFavouriteIcon,

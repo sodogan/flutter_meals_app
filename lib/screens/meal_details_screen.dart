@@ -15,11 +15,6 @@ class MealDetailsScreen extends StatelessWidget {
 
   static get routeName => _routeName;
 
-  Meal fetchMealByID({
-    required String mealID,
-  }) =>
-      DUMMY_MEALS.firstWhere((element) => element.id == mealID);
-
   Widget labelBuilder({
     required BuildContext context,
     required String label,
@@ -58,7 +53,7 @@ class MealDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _args = ModalRoute.of(context)?.settings.arguments as Map;
-    Meal _meal = fetchMealByID(mealID: _args['meal_id']);
+    Meal _meal = _args['meal'];
 
     return Scaffold(
       appBar: AppBar(
